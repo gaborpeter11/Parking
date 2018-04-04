@@ -77,12 +77,11 @@ public class NetworkUtils {
             httpURLConnection.setRequestProperty("Content-Type", "application/json");
             httpURLConnection.setRequestProperty("Accept", accept);
 
-
             httpURLConnection.setRequestMethod("PUT");
             httpURLConnection.setDoInput(true);
             httpURLConnection.setDoOutput(true);
 
-
+            // create function for this
             JSONObject parameters = new JSONObject();
             parameters.put("salutation", "MR");
             parameters.put("first-name", "Pavol");
@@ -94,8 +93,6 @@ public class NetworkUtils {
             parameters.put("security-question", "BEST_CHILDHOOD_FRIEND_NAME");
             parameters.put("security-answer", "Willi");
             parameters.put("terms-of-use-accepted", "true");
-
-
 
             OutputStream os = httpURLConnection.getOutputStream();
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
