@@ -28,7 +28,7 @@ public class DruhyFragment extends BaseFragment {
     protected void init(Bundle savedInstanceState) {
         //activity.setSupportActionBar(((MainActivity) activity).getToolbar());
 
-        Toast.makeText(getActivity(), "Fragment DRUHY",
+        Toast.makeText(getActivity(), signUpRequestBuilder.getText(),
                 Toast.LENGTH_SHORT).show();
 
 
