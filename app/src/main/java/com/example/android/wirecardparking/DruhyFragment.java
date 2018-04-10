@@ -15,17 +15,28 @@ public class DruhyFragment extends BaseFragment {
     @Arg(required = false)
     String type;
 
+    private SignUpRequestBuilder signUpRequestBuilder;
+
+
+    public static BaseFragment newInstance(SignUpRequestBuilder builder) {
+        DruhyFragment fragment = new DruhyFragment();
+        fragment.signUpRequestBuilder = builder;
+        return fragment;
+    }
+
     @Override
     protected void init(Bundle savedInstanceState) {
         //activity.setSupportActionBar(((MainActivity) activity).getToolbar());
 
-        Toast.makeText(getActivity(), type,
-                Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "Fragment DRUHY",
+                Toast.LENGTH_SHORT).show();
+
+
     }
 
     @Override
     protected int getResLayoutId() {
-        return R.layout.fragment_main;
+        return R.layout.fragment_druhy;
     }
 
 

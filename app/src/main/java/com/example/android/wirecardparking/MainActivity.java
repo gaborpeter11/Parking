@@ -3,6 +3,9 @@ package com.example.android.wirecardparking;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 
 
@@ -18,11 +21,15 @@ public class MainActivity extends BaseActivity {
         //setSupportActionBar(toolbar);
 
         toolbar.setTitle("popular");
-        changeTo(new MainFragmentBuilder().type("popular").build());
-        //changeTo(new MainFragment());
+        //changeTo(new MainFragmentBuilder().type("popular").build());
+
+        SignUpRequestBuilder builder = new SignUpRequestBuilder();
+
+        changeTo(MainFragment.newInstance(builder));
 
 
     }
+
 
     public Toolbar getToolbar() {
         return toolbar;
