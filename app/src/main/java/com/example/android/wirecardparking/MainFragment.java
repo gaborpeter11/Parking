@@ -1,12 +1,12 @@
 package com.example.android.wirecardparking;
 
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.android.wirecardparking.rest.ApiClient;
-import com.example.android.wirecardparking.rest.model.MoviesResponse;
-import com.example.android.wirecardparking.rest.model.SkusPUT;
+import com.example.android.wirecardparking.rest.model.RegisterRequest;
 import com.hannesdorfmann.fragmentargs.annotation.Arg;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
@@ -51,22 +51,22 @@ public class MainFragment extends BaseFragment {
         signUpRequestBuilder.setText("Teeeeeeext ideeeeeee");
 
           button.setOnClickListener(v -> {
-//        SkusPUT skus = new SkusPUT();
-//        skus.setSalutation("MR");
-//        skus.setFirstName("Pavol");
-//        skus.setLastName("Mate");
-//        skus.setMobileNumber("+44875464469");
-//        skus.setEmail("pavol.mate@wirecard.com");
-//        skus.setUserName("44875464467i7407v1.14.2");
-//        skus.setPassword("aaaa1111");
-//        skus.setSecurityQuestion("BEST_CHILDHOOD_FRIEND_NAME");
-//        skus.setSecurityAnswer("Willi");
-//        skus.setTermsOfUseAccepted("true");
-//        ApiClient.getApiService().putNewUser(skus)
-//                    .subscribeOn(Schedulers.io())
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe(this::handleResponse,
-//                            this::handleError );
+        RegisterRequest skus = new RegisterRequest();
+        skus.setSalutation("MR");
+        skus.setFirstName("Pavol");
+        skus.setLastName("Mate");
+        skus.setMobileNumber("+44875464469");
+        skus.setEmail("pavol.mate@wirecard.com");
+        skus.setUserName("44875464467i7407v1.14.2");
+        skus.setPassword("aaaa1111");
+        skus.setSecurityQuestion("BEST_CHILDHOOD_FRIEND_NAME");
+        skus.setSecurityAnswer("Willi");
+        skus.setTermsOfUseAccepted("true");
+        ApiClient.getApiService().putNewUser(skus)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(this::handleResponse,
+                            this::handleError );
 
 
               startFragment(DruhyFragment.newInstance(signUpRequestBuilder));
@@ -84,11 +84,19 @@ public class MainFragment extends BaseFragment {
     }
 
 
-    public void handleResponse(MoviesResponse response){
-//        String str1 = response.getFirstName();
-//        String str = response.getLastName();
-//        String op  = response.getSecurityQuestion().getQuestion();
-        System.out.println("" + "de");
+    public void handleResponse(RegisterRequest response){
+
+        AlertDialog.Builder builder;
+        builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Delete entry")
+                .setMessage("Are you sure you want to delete this entry?")
+                .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                    Toast.makeText(getActivity(), "Registered!!",
+                            Toast.LENGTH_LONG).show();
+                })
+                //.setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+
     }
 
     @Override

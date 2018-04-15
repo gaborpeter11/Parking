@@ -3,7 +3,7 @@ package com.example.android.wirecardparking.rest.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class SkusPUT {
+public class RegisterRequest {
 
     @SerializedName("salutation")
     @Expose
