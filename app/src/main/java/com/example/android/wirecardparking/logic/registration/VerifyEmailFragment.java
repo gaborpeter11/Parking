@@ -17,7 +17,7 @@ import butterknife.BindView;
 import rx.android.schedulers.AndroidSchedulers;
 
 @FragmentWithArgs
-public class EnterEmailFragment extends BaseFragment {
+public class VerifyEmailFragment extends BaseFragment {
 
     @BindView(R.id.button)
     Button button;
@@ -28,8 +28,8 @@ public class EnterEmailFragment extends BaseFragment {
     private RegisterRequest signUpRequestBuilder;
 
 
-    public static EnterEmailFragment newInstance(RegisterRequest builder) {
-        EnterEmailFragment fragment = new EnterEmailFragment();
+    public static VerifyEmailFragment newInstance(RegisterRequest builder) {
+        VerifyEmailFragment fragment = new VerifyEmailFragment();
         fragment.signUpRequestBuilder = builder;
         return fragment;
     }
@@ -37,10 +37,7 @@ public class EnterEmailFragment extends BaseFragment {
     @Override
     protected void init(Bundle savedInstanceState) {
 
-        button.setOnClickListener(v -> {
-            signUpRequestBuilder.setEmail(input_layout.getEditText().getText().toString());
-            startFragment(VerifyEmailFragment.newInstance(signUpRequestBuilder));
-        });
+        button.setOnClickListener(v -> startFragment(PersonalDataFragment.newInstance(signUpRequestBuilder)));
 
         RxTextView.textChangeEvents(input_layout.getEditText())
                 .skip(1)
@@ -53,22 +50,26 @@ public class EnterEmailFragment extends BaseFragment {
 
     @Override
     protected int getResLayoutId() {
-        return R.layout.fragment_enter_email;
+        return R.layout.fragment_verify_email;
     }
 
 
     public void validate(){
-        if(ValidatorHelper.validateEmptyField(input_layout.getEditText())){
-            if(ValidatorHelper.isEmailValid(input_layout)) {
-                button.setEnabled(true);
-                return;
-            }
+        if(!ValidatorHelper.validateEmptyField(input_layout.getEditText())){
+            button.setEnabled(false);
+            return;
         }
+        if(input_layout.getEditText().getText().toString().equals("1111")) {
+            button.setEnabled(true);
+            input_layout.setError(null);
+            return;
+        }else{
+            input_layout.setError("Wrong verification code");
+        }
+
         button.setEnabled(false);
+
     }
-
-
-
 
 }
 

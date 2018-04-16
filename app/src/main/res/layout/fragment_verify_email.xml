@@ -13,7 +13,7 @@
 
     <TextView
         android:id="@+id/tw_title"
-        android:text="@string/email"
+        android:text="@string/verify"
         style="@style/TextviewTitleTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +24,7 @@
         style="@style/TextviewDescriptionTheme"
         android:layout_marginEnd="50dp"
         android:layout_marginStart="50dp"
-        android:text="Please enter your email adress for account verification."
+        android:text="You received email with verification code. Please copy him below to verifiy yourself."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image" />
@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
-            android:hint="Enter your name"
+            android:hint="Enter code (e.g. 1111)"
             android:inputType="textNoSuggestions|textVisiblePassword"
             android:singleLine="true" />
 
@@ -64,7 +64,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tw_title"
-        app:srcCompat="@drawable/email" />
+        app:srcCompat="@drawable/email_verification" />
 
     <Button
         android:id="@+id/button"
