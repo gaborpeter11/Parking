@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">WirecardParking</string>
     <string name="app_title">Wirecard parking</string>
-    <string name="email">Email</string>
+    <string name="email">Email and Phone</string>
     <string name="your_email">Your email</string>
     <string name="next">Next</string>
     <string name="verify">Verify</string>

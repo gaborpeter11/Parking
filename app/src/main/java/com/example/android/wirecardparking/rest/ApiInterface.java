@@ -3,6 +3,7 @@ package com.example.android.wirecardparking.rest;
 
 import com.example.android.wirecardparking.rest.model.RegisterErrorRequest;
 import com.example.android.wirecardparking.rest.model.RegisterRequest;
+import com.example.android.wirecardparking.rest.model.getallplaces.ParkingHouses;
 
 import io.reactivex.Observable;
 import retrofit2.Call;
@@ -30,12 +31,21 @@ public interface ApiInterface {
     Observable<RegisterRequest> putNewUser(@Body RegisterRequest register);
 
 
+//    @Headers({
+//            "Content-Type: application/json",
+//            "Authorization: Bearer 9623e0a6-12d1-4251-b36b-5529e8546a60"    // TODO: CHANCGCE AKWAYS
+//    })
+//    @GET("parking-houses/free-parking-places")
+//    Observable<FreePlaces> getFreePlaces(@Body FreePlaces freePlaces);
+
+
     @Headers({
             "Content-Type: application/json",
-            "Accept: application/json"
+            "Accept: application/json",
     })
-    @GET("user/+44875464469/profile")
-    Observable<RegisterErrorRequest> getErrorPokus(@Header("Authorization") String name);
+    @GET("parking-houses")
+    Observable<ParkingHouses> getAllPlaces(@Header("Authorization") String token);
+
 
 
     @GET("movie/{id}")

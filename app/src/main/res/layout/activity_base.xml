@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:background="@color/text"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.v7.widget.Toolbar
@@ -11,7 +12,7 @@
         app:layout_collapseMode="pin"
         app:layout_scrollFlags="scroll|exitUntilCollapsed"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:background="@color/colorPrimary"/>
+        android:background="@color/button_text_toolbar"/>
 
     <FrameLayout
         android:id="@+id/container"

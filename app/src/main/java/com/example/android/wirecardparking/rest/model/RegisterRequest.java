@@ -41,6 +41,7 @@ public class RegisterRequest {
     }
 
     public void setSalutation(String salutation) {
+        // needs to rewrite?
         this.salutation = salutation;
     }
 

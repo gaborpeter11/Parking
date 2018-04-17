@@ -7,7 +7,6 @@ import android.widget.Button;
 import com.example.android.wirecardparking.BaseFragment;
 import com.example.android.wirecardparking.R;
 import com.example.android.wirecardparking.rest.model.RegisterRequest;
-import com.example.android.wirecardparking.utils.ValidatorHelper;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
@@ -15,6 +14,10 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import rx.android.schedulers.AndroidSchedulers;
+
+import static com.example.android.wirecardparking.utils.ValidatorHelper.isEmailValid;
+import static com.example.android.wirecardparking.utils.ValidatorHelper.validateEmptyField;
+import static com.example.android.wirecardparking.utils.ValidatorHelper.validatePhoneNumber;
 
 @FragmentWithArgs
 public class EnterEmailFragment extends BaseFragment {
@@ -24,6 +27,9 @@ public class EnterEmailFragment extends BaseFragment {
 
     @BindView(R.id.input_layout)
     TextInputLayout input_layout;
+
+    @BindView(R.id.input_number)
+    TextInputLayout input_number;
 
     private RegisterRequest signUpRequestBuilder;
 
@@ -39,6 +45,7 @@ public class EnterEmailFragment extends BaseFragment {
 
         button.setOnClickListener(v -> {
             signUpRequestBuilder.setEmail(input_layout.getEditText().getText().toString());
+            signUpRequestBuilder.setMobileNumber(input_number.getEditText().getText().toString());
             startFragment(VerifyEmailFragment.newInstance(signUpRequestBuilder));
         });
 
@@ -46,7 +53,21 @@ public class EnterEmailFragment extends BaseFragment {
                 .skip(1)
                 .debounce(500, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(textViewTextChangeEvent -> validate());
+                .subscribe(textViewTextChangeEvent -> {
+                    if(validateEmail()){
+                        enableNextButton(validateNumber());
+                    }
+                });
+
+        RxTextView.textChangeEvents(input_number.getEditText())
+                .skip(1)
+                .debounce(500, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(textViewTextChangeEvent -> {
+                    if(validateNumber()){
+                        enableNextButton(validateEmail());
+                    }
+                });
 
 
     }
@@ -57,14 +78,31 @@ public class EnterEmailFragment extends BaseFragment {
     }
 
 
-    public void validate(){
-        if(ValidatorHelper.validateEmptyField(input_layout.getEditText())){
-            if(ValidatorHelper.isEmailValid(input_layout)) {
+    public void enableNextButton(Boolean enable){
+
+        button.setEnabled(enable);
+    }
+
+
+    public boolean validateEmail(){
+        if(validateEmptyField(input_layout)){
+            if(isEmailValid(input_layout)) {
                 button.setEnabled(true);
-                return;
+                return true;
             }
         }
-        button.setEnabled(false);
+        return false;
+    }
+
+
+    public boolean validateNumber(){
+
+        if(validateEmptyField(input_number)){
+            if(validatePhoneNumber(input_number)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 

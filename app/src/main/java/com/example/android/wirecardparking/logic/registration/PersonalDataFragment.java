@@ -10,14 +10,12 @@ import com.example.android.wirecardparking.BaseFragment;
 import com.example.android.wirecardparking.R;
 import com.example.android.wirecardparking.rest.model.RegisterRequest;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
-import com.jakewharton.rxbinding.widget.RxTextView;
-
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import rx.android.schedulers.AndroidSchedulers;
 
 import static android.R.layout.simple_spinner_dropdown_item;
+import static com.example.android.wirecardparking.utils.ValidatorHelper.validateEmptyField;
+import static com.example.android.wirecardparking.utils.ValidatorHelper.validatePasswords;
 
 @FragmentWithArgs
 public class PersonalDataFragment extends BaseFragment {
@@ -27,6 +25,15 @@ public class PersonalDataFragment extends BaseFragment {
 
     @BindView(R.id.input_name)
     TextInputLayout input_name;
+
+    @BindView(R.id.input_surname)
+    TextInputLayout input_surname;
+
+    @BindView(R.id.input_pwd1)
+    TextInputLayout input_pwd1;
+
+    @BindView(R.id.input_pwd2)
+    TextInputLayout input_pwd2;
 
     @BindView(R.id.spinner)
     Spinner spinner;
@@ -51,17 +58,16 @@ public class PersonalDataFragment extends BaseFragment {
 
 
         button.setOnClickListener(v -> {
-            signUpRequestBuilder.setEmail(input_name.getEditText().getText().toString());
-            startFragment(VerifyEmailFragment.newInstance(signUpRequestBuilder));
+            if(validate()){
+                signUpRequestBuilder.setSalutation(spinner.getSelectedItem().toString());
+                signUpRequestBuilder.setFirstName(input_name.getEditText().getText().toString());
+                signUpRequestBuilder.setLastName(input_surname.getEditText().getText().toString());
+                signUpRequestBuilder.setPassword(input_pwd1.getEditText().getText().toString());
+                signUpRequestBuilder.setUserName(signUpRequestBuilder.getMobileNumber()+"v2");
+                signUpRequestBuilder.setTermsOfUseAccepted("true");
+                startFragment(SecurityQuestionFragment.newInstance(signUpRequestBuilder));
+            }
         });
-
-        RxTextView.textChangeEvents(input_name.getEditText())
-                .skip(1)
-                .debounce(500, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(textViewTextChangeEvent -> {
-                    validate();
-                });
 
 
     }
@@ -72,18 +78,17 @@ public class PersonalDataFragment extends BaseFragment {
     }
 
 
-    public void validate(){
-//        if(ValidatorHelper.validateEmptyField(input_layout)){
-//            if(ValidatorHelper.isEmailValid(input_layout)) {
-//                button.setEnabled(true);
-//                return;
-//            }
-//        }
-//        button.setEnabled(false);
+    public boolean validate() {
+
+        if (validateEmptyField(input_name) && validateEmptyField(input_surname)
+                && validateEmptyField(input_pwd1) && validateEmptyField(input_pwd2)) {
+            if(validatePasswords(input_pwd1, input_pwd2)){
+                return true;
+            }
+        }
+
+        return false;
     }
-
-
-
 
 }
 

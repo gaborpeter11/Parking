@@ -14,9 +14,8 @@
 
     <TextView
         android:id="@+id/tw_title"
-        android:text="@string/email"
+        android:text="Security question"
         style="@style/TextviewTitleTheme"
-        android:textColor="@color/button_text_toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,70 +23,55 @@
     <TextView
         android:id="@+id/tw_info"
         style="@style/TextviewDescriptionTheme"
-        android:layout_height="70dp"
+        android:layout_height="79dp"
         android:layout_marginEnd="50dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="5dp"
-        android:text="Please enter your email adress and phone number for account verification."
-        android:textColor="@color/button_text_toolbar"
+        android:layout_marginTop="20dp"
+        android:text="Please choose your security question and security answer in case you forgot your password."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image" />
 
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_layout"
+    <Spinner
+        android:id="@+id/spinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginEnd="50dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tw_info" />
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/security_answer_input"
+        android:layout_width="match_parent"
+        android:layout_height="81dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
         app:errorEnabled="true"
-        android:textColorHint="@color/button_text_toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tw_info">
+        app:layout_constraintTop_toBottomOf="@+id/spinner">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
-            android:textColor="@color/button_text_toolbar"
-            app:backgroundTint="@color/button_text_toolbar"
-            android:hint="Enter your email adress"
+            android:hint="Enter your answer"
             android:inputType="textNoSuggestions|textVisiblePassword"
             android:singleLine="true" />
 
     </android.support.design.widget.TextInputLayout>
 
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="50dp"
-        android:layout_marginStart="50dp"
-        app:errorEnabled="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textColorHint="@color/button_text_toolbar"
-        app:layout_constraintTop_toBottomOf="@+id/input_layout">
-
-        <android.support.design.widget.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/button_text_toolbar"
-            app:backgroundTint="@color/button_text_toolbar"
-            android:focusableInTouchMode="true"
-            android:hint="Enter your phone number"
-            android:inputType="textNoSuggestions|textVisiblePassword"
-            android:singleLine="true" />
-
-    </android.support.design.widget.TextInputLayout>
 
 
     <ImageView
@@ -95,10 +79,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:src="@drawable/email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tw_title" />
+        app:layout_constraintTop_toBottomOf="@+id/tw_title"
+        app:srcCompat="@drawable/security_question" />
 
     <Button
         android:id="@+id/button"

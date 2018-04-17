@@ -4,7 +4,7 @@
     <item>
         <shape android:shape="rectangle">
             <!-- Normal color -->
-            <solid android:color="@android:color/darker_gray" />
+            <solid android:color="@color/button_text_toolbar" />
         </shape>
     </item>
 

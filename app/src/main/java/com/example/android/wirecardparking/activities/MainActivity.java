@@ -26,7 +26,7 @@ public class MainActivity extends BaseActivity {
 
         RegisterRequest builder = new RegisterRequest();
         changeTo(EnterEmailFragment.newInstance(builder));
-
+        //changeTo(MainFragment.newInstance());
     }
 
 

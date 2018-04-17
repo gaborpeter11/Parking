@@ -55,7 +55,7 @@ public class VerifyEmailFragment extends BaseFragment {
 
 
     public void validate(){
-        if(!ValidatorHelper.validateEmptyField(input_layout.getEditText())){
+        if(!ValidatorHelper.validateEmptyField(input_layout)){
             button.setEnabled(false);
             return;
         }

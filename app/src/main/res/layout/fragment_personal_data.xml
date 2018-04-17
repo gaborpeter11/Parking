@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
-            android:hint="Enter code (e.g. 1111)"
+            android:hint="First name"
             android:inputType="textNoSuggestions|textVisiblePassword"
             android:singleLine="true" />
 
@@ -78,7 +78,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
-            android:hint="Enter code (e.g. 1111)"
+            android:hint="Last name"
             android:inputType="textNoSuggestions|textVisiblePassword"
             android:singleLine="true" />
 
@@ -100,8 +100,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
-            android:hint="Enter code (e.g. 1111)"
-            android:inputType="textNoSuggestions|textVisiblePassword"
+            android:hint="Password"
+            android:inputType="textPassword"
             android:singleLine="true" />
 
     </android.support.design.widget.TextInputLayout>
@@ -123,8 +123,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
-            android:hint="Enter code (e.g. 1111)"
-            android:inputType="textNoSuggestions|textVisiblePassword"
+            android:hint="Repeat password"
+            android:inputType="textPassword"
             android:singleLine="true" />
 
     </android.support.design.widget.TextInputLayout>
@@ -136,7 +136,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/next"
-        android:enabled="false"
+        android:enabled="true"
         android:background="@drawable/simple_selector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
