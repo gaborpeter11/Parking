@@ -1,4 +1,4 @@
-package com.example.android.wirecardparking.rest.model;
+package com.example.android.wirecardparking.rest.model.registeruser;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

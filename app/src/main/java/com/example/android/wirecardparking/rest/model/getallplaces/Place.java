@@ -16,9 +16,21 @@ public class Place {
     @Expose
     private String id;
 
+    @SerializedName("display-name")
+    @Expose
+    private String displayID;
+
     @SerializedName("availabilities")
     @Expose
     private ArrayList<EachDay> availableSpots = new ArrayList<>();
+
+    @SerializedName("user")
+    @Expose
+    private User users;
+
+    @SerializedName("owner")
+    @Expose
+    private User owner;
 
 
 
@@ -30,6 +42,13 @@ public class Place {
         this.id = id;
     }
 
+    public String getDisplayID() {
+        return displayID;
+    }
+
+    public void setDisplayID(String id) {
+        this.displayID = id;
+    }
 
 
     public ArrayList<EachDay> getAvailableSpots() {
@@ -40,5 +59,21 @@ public class Place {
         this.availableSpots = contacts;
     }
 
+    public User getUsers() {
+        return users;
+    }
+
+    public void setUsers(User users) {
+        this.users = users;
+    }
+
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
 
 }

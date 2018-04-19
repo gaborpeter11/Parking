@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.android.wirecardparking.rest.ApiClient;
 import com.example.android.wirecardparking.rest.model.getallplaces.ParkingHouses;
 import com.hannesdorfmann.fragmentargs.annotation.Arg;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
@@ -13,8 +12,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 @FragmentWithArgs
 public class MainFragment extends BaseFragment {
@@ -61,11 +58,11 @@ public class MainFragment extends BaseFragment {
 
 
 
-        ApiClient.getApiService().getAllPlaces("Bearer 9623e0a6-12d1-4251-b36b-5529e8546a60")
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(this::handleResponse,
-                            this::handleError );
+//        ApiClient.getApiService().getAllPlaces("Bearer 9623e0a6-12d1-4251-b36b-5529e8546a60")
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(this::handleResponse,
+//                            this::handleError );
 
 
 
@@ -88,7 +85,7 @@ public class MainFragment extends BaseFragment {
                 for(int k = 0; k < hih.get(i).getPlaces().get(j).getAvailableSpots().size(); k++){
                     String sop = hih.get(i).getPlaces().get(j).getAvailableSpots().get(k).getDay();
                     if(hih.get(i).getPlaces().get(j).getAvailableSpots().get(k).getEachDayUser()!= null) {
-                        String sopel = hih.get(i).getPlaces().get(j).getAvailableSpots().get(k).getEachDayUser().getMobile();
+                        String sopel = hih.get(i).getPlaces().get(j).getAvailableSpots().get(k).getEachDayUser().getUserNumber();
                         System.out.println(sopel);
                     }
                 }

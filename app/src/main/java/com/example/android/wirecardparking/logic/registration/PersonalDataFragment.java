@@ -8,7 +8,7 @@ import android.widget.Spinner;
 
 import com.example.android.wirecardparking.BaseFragment;
 import com.example.android.wirecardparking.R;
-import com.example.android.wirecardparking.rest.model.RegisterRequest;
+import com.example.android.wirecardparking.rest.model.registeruser.RegisterRequest;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 
 import butterknife.BindView;

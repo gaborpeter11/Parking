@@ -15,7 +15,7 @@ public class EachDay {
 
         @SerializedName("user")
         @Expose
-        private EachDayUser eachDayUsers;
+        private User eachDayUsers;
 
 
 
@@ -28,30 +28,15 @@ public class EachDay {
         }
 
 
-        public EachDayUser getEachDayUser() {
+        public User getEachDayUser() {
             return eachDayUsers;
         }
 
-        public void setEachDayUser(EachDayUser contacts) {
+        public void setEachDayUser(User contacts) {
             this.eachDayUsers = contacts;
         }
 
 
-    public class EachDayUser {
-
-        @SerializedName("mobile-number")
-        @Expose
-        private String mobile;
-
-        public String getMobile() {
-            return mobile;
-        }
-
-        public void setMobile(String mobile) {
-            this.mobile = mobile;
-        }
-
-    }
 
 }
 

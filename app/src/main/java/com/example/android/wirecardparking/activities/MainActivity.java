@@ -6,8 +6,8 @@ import android.view.MenuItem;
 
 import com.example.android.wirecardparking.BaseActivity;
 import com.example.android.wirecardparking.R;
-import com.example.android.wirecardparking.logic.registration.EnterEmailFragment;
-import com.example.android.wirecardparking.rest.model.RegisterRequest;
+import com.example.android.wirecardparking.logic.LoginFragment;
+import com.example.android.wirecardparking.rest.model.registeruser.RegisterRequest;
 
 import butterknife.BindView;
 
@@ -25,7 +25,7 @@ public class MainActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         RegisterRequest builder = new RegisterRequest();
-        changeTo(EnterEmailFragment.newInstance(builder));
+        changeTo(LoginFragment.newInstance(builder));
         //changeTo(MainFragment.newInstance());
     }
 

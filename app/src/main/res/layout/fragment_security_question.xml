@@ -16,6 +16,7 @@
         android:id="@+id/tw_title"
         android:text="Security question"
         style="@style/TextviewTitleTheme"
+        android:textColor="@color/button_text_toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,6 +28,7 @@
         android:layout_marginEnd="50dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="20dp"
+        android:textColor="@color/button_text_toolbar"
         android:text="Please choose your security question and security answer in case you forgot your password."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -57,6 +59,7 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="20dp"
         app:errorEnabled="true"
+        android:textColorHint="@color/button_text_toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,6 +69,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
+            android:textColor="@color/button_text_toolbar"
+            app:backgroundTint="@color/button_text_toolbar"
             android:hint="Enter your answer"
             android:inputType="textNoSuggestions|textVisiblePassword"
             android:singleLine="true" />
@@ -82,7 +87,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tw_title"
-        app:srcCompat="@drawable/security_question" />
+        android:src="@drawable/security_question" />
 
     <Button
         android:id="@+id/button"

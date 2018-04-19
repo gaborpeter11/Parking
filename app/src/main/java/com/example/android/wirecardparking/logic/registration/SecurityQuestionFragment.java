@@ -10,8 +10,9 @@ import android.widget.Toast;
 
 import com.example.android.wirecardparking.BaseFragment;
 import com.example.android.wirecardparking.R;
+import com.example.android.wirecardparking.logic.LoginFragment;
 import com.example.android.wirecardparking.rest.ApiClient;
-import com.example.android.wirecardparking.rest.model.RegisterRequest;
+import com.example.android.wirecardparking.rest.model.registeruser.RegisterRequest;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
@@ -126,7 +127,7 @@ public class SecurityQuestionFragment extends BaseFragment {
         builder.setTitle("Success")
                 .setMessage("You are now registered! Go log in")
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                    //spusti login fragment
+                    startFragment(LoginFragment.newInstance(signUpRequestBuilder));
                 })
                 //.setIcon(android.R.drawable.ic_dialog_alert)
                 .show();

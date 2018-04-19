@@ -27,11 +27,17 @@ public class ParkingHouses {
 
 
 
+
+
     public class ParkingPlaces {
 
         @SerializedName("parking-places")
         @Expose
         private ArrayList<Place> place = new ArrayList<>();
+
+        @SerializedName("display-name")
+        @Expose
+        private String houseDisplayName;
 
 
         public ArrayList<Place> getPlaces() {
@@ -40,6 +46,14 @@ public class ParkingHouses {
 
         public void setPlaces(ArrayList<Place> contacts) {
             this.place = contacts;
+        }
+
+        public String getHouseDisplayName() {
+            return houseDisplayName;
+        }
+
+        public void setHouseDisplayName(String houseDisplayName) {
+            this.houseDisplayName = houseDisplayName;
         }
 
     }

@@ -6,7 +6,7 @@ import android.widget.Button;
 
 import com.example.android.wirecardparking.BaseFragment;
 import com.example.android.wirecardparking.R;
-import com.example.android.wirecardparking.rest.model.RegisterRequest;
+import com.example.android.wirecardparking.rest.model.registeruser.RegisterRequest;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
@@ -68,6 +68,7 @@ public class EnterEmailFragment extends BaseFragment {
                         enableNextButton(validateEmail());
                     }
                 });
+
 
 
     }

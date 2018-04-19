@@ -6,7 +6,7 @@ import android.widget.Button;
 
 import com.example.android.wirecardparking.BaseFragment;
 import com.example.android.wirecardparking.R;
-import com.example.android.wirecardparking.rest.model.RegisterRequest;
+import com.example.android.wirecardparking.rest.model.registeruser.RegisterRequest;
 import com.example.android.wirecardparking.utils.ValidatorHelper;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 import com.jakewharton.rxbinding.widget.RxTextView;

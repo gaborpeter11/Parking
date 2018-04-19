@@ -14,6 +14,7 @@
     <TextView
         android:id="@+id/tw_title"
         android:text="@string/verify"
+        android:textColor="@color/button_text_toolbar"
         style="@style/TextviewTitleTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,6 +25,7 @@
         style="@style/TextviewDescriptionTheme"
         android:layout_marginEnd="50dp"
         android:layout_marginStart="50dp"
+        android:textColor="@color/button_text_toolbar"
         android:text="You received email with verification code. Please copy him below to verifiy yourself."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,6 +39,7 @@
         android:layout_marginEnd="50dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="40dp"
+        android:textColorHint="@color/button_text_toolbar"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -48,6 +51,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
+            android:textColor="@color/button_text_toolbar"
+            app:backgroundTint="@color/button_text_toolbar"
             android:hint="Enter code (e.g. 1111)"
             android:inputType="textNoSuggestions|textVisiblePassword"
             android:singleLine="true" />
@@ -64,7 +69,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tw_title"
-        app:srcCompat="@drawable/email_verification" />
+        android:src="@drawable/emai_verify" />
 
     <Button
         android:id="@+id/button"
