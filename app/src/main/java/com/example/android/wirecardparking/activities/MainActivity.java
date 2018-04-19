@@ -26,7 +26,7 @@ public class MainActivity extends BaseActivity {
 
         RegisterRequest builder = new RegisterRequest();
         changeTo(LoginFragment.newInstance(builder));
-        //changeTo(MainFragment.newInstance());
+        //changeTo(Tab1Fragment.newInstance());
     }
 
 

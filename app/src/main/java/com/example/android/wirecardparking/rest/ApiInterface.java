@@ -1,11 +1,13 @@
 package com.example.android.wirecardparking.rest;
 
 
+import com.example.android.wirecardparking.rest.model.SetAvailableDaysRequest;
 import com.example.android.wirecardparking.rest.model.Token;
 import com.example.android.wirecardparking.rest.model.getallplaces.ParkingHouses;
 import com.example.android.wirecardparking.rest.model.registeruser.RegisterErrorRequest;
 import com.example.android.wirecardparking.rest.model.registeruser.RegisterRequest;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -55,6 +57,13 @@ public interface ApiInterface {
     })
     @GET("parking-houses")
     Observable<ParkingHouses> getAllPlaces(@Header("Authorization") String token);
+
+    @Headers({
+            "Content-Type: application/json",
+            "Accept: application/json",
+    })
+    @PUT("user/+421901111244/set-available-days")
+    Completable setAvailableDays(@Header("Authorization") String token, @Body SetAvailableDaysRequest setAvailableDays);
 
 
 

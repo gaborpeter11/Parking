@@ -59,4 +59,8 @@ dependencies {
     compile 'com.jakewharton.rxbinding:rxbinding:1.0.0'
 
 
+    //date picker
+    compile 'com.wdullaer:materialdatetimepicker:3.5.1'
+    compile 'com.appeaser.sublimepickerlibrary:sublimepickerlibrary:2.1.1'
+
 }

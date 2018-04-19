@@ -8,16 +8,25 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.wirecardparking.BaseFragment;
 import com.example.android.wirecardparking.R;
 import com.example.android.wirecardparking.activities.DashboardActivity;
 import com.example.android.wirecardparking.rest.ApiClient;
+import com.example.android.wirecardparking.rest.model.SetAvailableDaysRequest;
 import com.example.android.wirecardparking.rest.model.getallplaces.ParkingHouses;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -27,7 +36,7 @@ import static android.content.Context.MODE_PRIVATE;
 import static com.example.android.wirecardparking.logic.LoginFragment.TOKEN;
 
 @FragmentWithArgs
-public class Tab2Fragment extends BaseFragment {
+public class Tab2Fragment extends BaseFragment implements DatePickerDialog.OnDateSetListener{
 
     @BindView(R.id.button)
     Button button;
@@ -50,6 +59,7 @@ public class Tab2Fragment extends BaseFragment {
     @BindView(R.id.view2)
     View view2;
 
+    private String value;
 
     @Override
     protected void init(Bundle savedInstanceState) {
@@ -63,11 +73,14 @@ public class Tab2Fragment extends BaseFragment {
             startActivity(intent);
         });
 
+        button.setOnClickListener(v -> {
+            showDatePicker();
+        });
 
 
         SharedPreferences settings = getContext().getSharedPreferences(TOKEN, MODE_PRIVATE);
         // Reading from SharedPreferences
-        String value = "Bearer " + settings.getString("token", "");
+        value = "Bearer " + settings.getString("token", "");
 
         ApiClient.getApiService().getAllPlaces(value)
                 .subscribeOn(Schedulers.io())
@@ -87,6 +100,7 @@ public class Tab2Fragment extends BaseFragment {
     private void handleError(Throwable throwable) throws IOException {
 //        HttpException err = (HttpException) throwable;
 //        String errBody = err.response().errorBody().string();
+        Toast.makeText(getActivity(), "Error occurred", Toast.LENGTH_SHORT).show();
         System.out.println(throwable.getMessage());
     }
 
@@ -124,6 +138,75 @@ public class Tab2Fragment extends BaseFragment {
             view2.setVisibility(View.INVISIBLE);
             button.setEnabled(false);
         }
+
+    }
+
+
+
+    private void showDatePicker() {
+
+        Calendar calendar = Calendar.getInstance();
+
+        DatePickerDialog dpd = DatePickerDialog.newInstance(
+                this,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+        );
+        dpd.show(getActivity().getFragmentManager(), "DatePickerDialog");
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String[] holidays = {};
+
+        java.util.Date date = null;
+
+        if(holidays.length == 0 || holidays == null)
+            return;
+
+        for (int i = 0;i < holidays.length; i++) {
+
+            try {
+                date = sdf.parse(holidays[i]);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            calendar = dateToCalendar(date);
+            System.out.println(calendar.getTime());
+
+            List<Calendar> dates = new ArrayList<>();
+            dates.add(calendar);
+            Calendar[] disabledDays1 = dates.toArray(new Calendar[dates.size()]);
+            dpd.setDisabledDays(disabledDays1);
+        }
+
+    }
+
+    private Calendar dateToCalendar(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar;
+    }
+
+
+
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+
+        monthOfYear = monthOfYear + 1;
+        String date = year + "-" + monthOfYear + "-" + +dayOfMonth;
+        List<String> holidays =  Arrays.asList(date);
+        SetAvailableDaysRequest setAvailableDaysRequest = new SetAvailableDaysRequest();
+        setAvailableDaysRequest.setParkingPlaceIdentifier("fd58b607-dc14-43f5-b33c-ce77430e64a5");
+        setAvailableDaysRequest.setDays(holidays);
+
+
+        ApiClient.getApiService().setAvailableDays(value, setAvailableDaysRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {},
+                        this::handleError
+                );
 
     }
 

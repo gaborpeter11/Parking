@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.example.android.wirecardparking.BaseActivity;
-import com.example.android.wirecardparking.MainFragment;
+import com.example.android.wirecardparking.logic.dashboard.Tab1Fragment;
 import com.example.android.wirecardparking.R;
 import com.example.android.wirecardparking.logic.dashboard.Tab2Fragment;
 import com.example.android.wirecardparking.logic.dashboard.Tab3Fragment;
@@ -70,7 +70,7 @@ public class DashboardActivity extends BaseActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new MainFragment(), "Free spot");   //getResources().getString(R.string.favorite_restarants)
+        adapter.addFragment(new Tab1Fragment(), "Free spot");   //getResources().getString(R.string.favorite_restarants)
         adapter.addFragment(new Tab2Fragment(), "My spot");
         adapter.addFragment(new Tab3Fragment(), "Settings");
         viewPager.setAdapter(adapter);

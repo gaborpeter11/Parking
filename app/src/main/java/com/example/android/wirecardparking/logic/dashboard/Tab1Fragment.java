@@ -1,9 +1,11 @@
-package com.example.android.wirecardparking;
+package com.example.android.wirecardparking.logic.dashboard;
 
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.android.wirecardparking.BaseFragment;
+import com.example.android.wirecardparking.R;
 import com.example.android.wirecardparking.rest.model.getallplaces.ParkingHouses;
 import com.hannesdorfmann.fragmentargs.annotation.Arg;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
@@ -14,7 +16,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 
 @FragmentWithArgs
-public class MainFragment extends BaseFragment {
+public class Tab1Fragment extends BaseFragment {
 
     //String op = NetworkUtils.putOnServer2();
 
@@ -27,7 +29,7 @@ public class MainFragment extends BaseFragment {
 
 
     public static BaseFragment newInstance() {
-        MainFragment fragment = new MainFragment();
+        Tab1Fragment fragment = new Tab1Fragment();
         return fragment;
     }
 
@@ -97,7 +99,7 @@ public class MainFragment extends BaseFragment {
 
     @Override
     protected int getResLayoutId() {
-        return R.layout.fragment_main;
+        return R.layout.fragment_tab1;
     }
 
 
