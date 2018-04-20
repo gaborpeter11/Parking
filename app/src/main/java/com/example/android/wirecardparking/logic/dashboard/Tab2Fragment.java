@@ -212,11 +212,10 @@ public class Tab2Fragment extends BaseFragment implements DatePickerDialog.OnDat
         setAvailableDaysRequest.setParkingPlaceIdentifier("fd58b607-dc14-43f5-b33c-ce77430e64a5");  // parkovisko 2
         setAvailableDaysRequest.setDays(arrayHelper);
 
-
         ApiClient.getApiService().setAvailableDays(value, setAvailableDaysRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> {},
+                .subscribe(() -> ((DashboardActivity) getContext()).refreshUI(),
                         this::handleError
                 );
 

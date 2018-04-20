@@ -1,4 +1,4 @@
-package com.example.android.wirecardparking;
+package com.example.android.wirecardparking.logic.dashboard;
 
 /**
  * Created by PepovPC on 7/16/2017.
@@ -7,32 +7,31 @@ package com.example.android.wirecardparking;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.example.android.wirecardparking.utils.Movie;
-import com.squareup.picasso.Picasso;
+import com.example.android.wirecardparking.R;
+import com.example.android.wirecardparking.rest.model.getallplaces.Place;
 
 import java.util.ArrayList;
 
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ForecastAdapterViewHolder> {
-
-    private static final String TAG = MovieAdapter.class.getSimpleName();
-    private ArrayList<Movie> moviesData;
+public class ParkingAdapter extends RecyclerView.Adapter<ParkingAdapter.ParkingAdapterViewHolder> {
+    private ArrayList<Place> parkingData;
     private Context context;
-    private final ForecastAdapterOnClickHandler mClickHandler;
+    private final ParkingAdapterOnClickHandler mClickHandler;
 
     /**
      * Rozhranie, ktore urcuje, co sa vykona po kliknuti na konkretny view
      */
-    public interface ForecastAdapterOnClickHandler {
-        void onClick(Movie weatherForDay);
+    public interface ParkingAdapterOnClickHandler {
+        void onClick(Place place);
     }
 
-    public MovieAdapter(Context context, ForecastAdapterOnClickHandler clickHandler) {
+    public ParkingAdapter(Context context, ParkingAdapterOnClickHandler clickHandler) {
         this.context = context;         // for Picasso
         mClickHandler = clickHandler;   // for Clicking
     }
@@ -43,39 +42,40 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ForecastAdap
      * Vytvori a inicializuje ich
      * Tiez implementuje rozhranie, ktore umozni click (tak ako v main), ale tu sa nastavuju data (pozicia, movie)
      */
-    public class ForecastAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ParkingAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public final ImageView obrazek;
+        public final TextView title;
+        public final TextView spot;
 
-       public ForecastAdapterViewHolder(View view) {
+       public ParkingAdapterViewHolder(View view) {
             super(view);
-            obrazek = (ImageView) view.findViewById(R.id.tv_item_number);
+           title = view.findViewById(R.id.title);
+           spot = view.findViewById(R.id.spot);
            view.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
-            Movie movie = moviesData.get(adapterPosition);
-            mClickHandler.onClick(movie);
+            Place place = parkingData.get(adapterPosition);
+            mClickHandler.onClick(place);
         }
     }
 
     /**
      * This gets called when each new ViewHolder is created. This happens when the RecyclerView
      * is laid out. Enough ViewHolders will be created to fill the screen and allow for scrolling.
-     * @return A new ForecastAdapterViewHolder that holds the View for each list item
+     * @return A new ParkingAdapterViewHolder that holds the View for each list item
      *
      */
     @Override
-    public ForecastAdapterViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public ParkingAdapterViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
-        int layoutIdForListItem = R.layout.movie_grid_item;
+        int layoutIdForListItem = R.layout.parking_place_item;
         LayoutInflater inflater = LayoutInflater.from(context);
-        boolean shouldAttachToParentImmediately = false;
 
-        View view = inflater.inflate(layoutIdForListItem, viewGroup, shouldAttachToParentImmediately);
-        return new ForecastAdapterViewHolder(view);
+        View view = inflater.inflate(layoutIdForListItem, viewGroup, false);
+        return new ParkingAdapterViewHolder(view);
     }
 
     /**
@@ -84,7 +84,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ForecastAdap
      * details for this particular position, using the "position" argument that is conveniently
      * passed into us.
      *
-     * @param forecastAdapterViewHolder The ViewHolder which should be updated to represent the
+     * @param parkingAdapterViewHolder The ViewHolder which should be updated to represent the
      *                                  contents of the item at the given position in the data set.
      * @param position                  The position of the item within the adapter's data set.
      *
@@ -92,15 +92,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ForecastAdap
      *
      */
     @Override
-    public void onBindViewHolder(ForecastAdapterViewHolder forecastAdapterViewHolder, int position) {
-        String weatherForThisDay = moviesData.get(position).getImage();
-        System.out.println(weatherForThisDay);
-        Picasso.with(context)
-                .load(weatherForThisDay)
-                .into(forecastAdapterViewHolder.obrazek);
+    public void onBindViewHolder(ParkingAdapterViewHolder parkingAdapterViewHolder, int position) {
 
-//        String weatherForThisDay = moviesData.get(position).getTitle();
-//        forecastAdapterViewHolder.mWeatherTextView.setText(weatherForThisDay);
+//        String visibleID = parkingData.get(position).get();
+//        parkingAdapterViewHolder.spot.setText(visibleID);
+
+        String visibleID = parkingData.get(position).getDisplayID();
+        parkingAdapterViewHolder.spot.setText(Html.fromHtml("Spot number: " + "<i>" + visibleID + "</i> "));
+
 
     }
 
@@ -112,8 +111,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ForecastAdap
      */
     @Override
     public int getItemCount() {
-        if (null == moviesData) return 0;
-        return moviesData.size();
+        if (null == parkingData) return 0;
+        return parkingData.size();
     }
 
     /**
@@ -123,8 +122,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ForecastAdap
      *
      * @param data The new weather data to be displayed.
      */
-    public void setMoviesData(ArrayList<Movie> data) {
-        moviesData = data;
+    public void setParkingData(ArrayList<Place> data) {
+        parkingData = data;
         notifyDataSetChanged();
     }
+
 }

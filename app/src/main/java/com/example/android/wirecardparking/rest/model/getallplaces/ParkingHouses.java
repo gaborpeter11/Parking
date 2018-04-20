@@ -27,8 +27,6 @@ public class ParkingHouses {
 
 
 
-
-
     public class ParkingPlaces {
 
         @SerializedName("parking-places")

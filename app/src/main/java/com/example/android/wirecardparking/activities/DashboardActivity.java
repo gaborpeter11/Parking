@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.example.android.wirecardparking.BaseActivity;
 import com.example.android.wirecardparking.R;
@@ -39,9 +41,13 @@ public class DashboardActivity extends BaseActivity {
     @BindView(R.id.toolbar)
     android.support.v7.widget.Toolbar toolbar;
 
+    @BindView(R.id.pb_loading_indicator)
+    ProgressBar loader;
+
     private static boolean hasParkingSpot = false;
     String number;
     private static String parkingPlaceID;
+    private ViewPagerAdapter adapter;
 
     @Override
     public void init(Bundle savedInstanceState) {
@@ -51,14 +57,13 @@ public class DashboardActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().hide();
 
-        setupViewPager(viewpager);
-        tabLayout.setupWithViewPager(viewpager);
 
         SharedPreferences settings = getSharedPreferences(TOKEN, MODE_PRIVATE);
         // Reading from SharedPreferences
         String value = "Bearer " + settings.getString("token", "");
         number = settings.getString("number", "");
 
+        loader.setVisibility(View.VISIBLE);
         ApiClient.getApiService().getAllPlaces(value)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -77,7 +82,7 @@ public class DashboardActivity extends BaseActivity {
 
 
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new Tab1Fragment(), "Free spot");   //getResources().getString(R.string.favorite_restarants)
         adapter.addFragment(new Tab2Fragment(), "My spot");
         adapter.addFragment(new Tab3Fragment(), "Settings");
@@ -109,10 +114,17 @@ public class DashboardActivity extends BaseActivity {
         }
 
         @Override
+        public int getItemPosition(Object object) {
+            // POSITION_NONE makes it possible to reload the PagerAdapter
+            return POSITION_NONE;
+        }
+
+        @Override
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
     }
+
 
 
 //    @Override
@@ -146,16 +158,14 @@ public class DashboardActivity extends BaseActivity {
         for(int i = 0; i < fullParkingHouses.size(); i++){
             for(int j = 0; j < fullParkingHouses.get(i).getPlaces().size(); j++){
                 if (fullParkingHouses.get(i).getPlaces().get(j).getUsers().getUserNumber().equals(number)){
-                    viewpager.setCurrentItem(1);
-                    setHasParkingSpot(true);
+                    startSecondFragment();
                     setPlaceID(fullParkingHouses.get(i).getPlaces().get(j).getId());
                     return;
                 }
                 for(int k = 0; k < fullParkingHouses.get(i).getPlaces().get(j).getAvailableSpots().size(); k++){
                     if(fullParkingHouses.get(i).getPlaces().get(j).getAvailableSpots().get(k).getEachDayUser()!= null) {
                         if(fullParkingHouses.get(i).getPlaces().get(j).getAvailableSpots().get(k).getEachDayUser().getUserNumber().equals(number)) {
-                            viewpager.setCurrentItem(1);
-                            setHasParkingSpot(true);
+                            startSecondFragment();
                             setPlaceID(fullParkingHouses.get(i).getPlaces().get(j).getId());
                             return;
                         }
@@ -164,6 +174,21 @@ public class DashboardActivity extends BaseActivity {
             }
         }
 
+        loader.setVisibility(View.INVISIBLE);
+
+    }
+
+    public void startSecondFragment(){
+        loader.setVisibility(View.INVISIBLE);
+        setupViewPager(viewpager);
+        tabLayout.setupWithViewPager(viewpager);
+        viewpager.setCurrentItem(1);
+        setHasParkingSpot(true);
+    }
+
+
+    public void refreshUI(){
+        adapter.notifyDataSetChanged();
     }
 
 
