@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.example.android.wirecardparking.BaseFragment;
 import com.example.android.wirecardparking.R;
+import com.example.android.wirecardparking.activities.ChangePasswordActivity;
 import com.example.android.wirecardparking.activities.MainActivity;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 
@@ -29,8 +29,8 @@ public class Tab3Fragment extends BaseFragment {
     protected void init(Bundle savedInstanceState) {
 
         button_change_pwd.setOnClickListener(v -> {
-            Toast.makeText(getActivity(), "OBEEED",
-                    Toast.LENGTH_SHORT).show();
+            Intent myIntent = new Intent(getContext(), ChangePasswordActivity.class);
+            startActivity(myIntent);
         });
 
 

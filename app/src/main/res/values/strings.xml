@@ -7,4 +7,6 @@
     <string name="verify">Verify</string>
     <string name="personal_informations">Personal informations</string>
     <string name="change_password">Change password</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="done">Done</string>
 </resources>

@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.util.Base64;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.android.wirecardparking.BaseFragment;
 import com.example.android.wirecardparking.R;
 import com.example.android.wirecardparking.activities.DashboardActivity;
+import com.example.android.wirecardparking.logic.changepersonaldetails.ForgotPasswordFragment;
 import com.example.android.wirecardparking.logic.registration.EnterEmailFragment;
 import com.example.android.wirecardparking.rest.ApiClient;
 import com.example.android.wirecardparking.rest.model.Token;
@@ -39,6 +41,9 @@ public class LoginFragment extends BaseFragment {
 
     @BindView(R.id.input_pwd)
     TextInputLayout input_pwd_layout;
+
+    @BindView(R.id.tw_forgot_pwd)
+    TextView tw_forgot_pwd;
 
     private RegisterRequest signUpRequestBuilder;
 
@@ -88,6 +93,11 @@ public class LoginFragment extends BaseFragment {
                     .subscribe(this::handleResponse,
                             this::handleError );
 
+        });
+
+        tw_forgot_pwd.setOnClickListener(v -> {
+            startFragment(new ForgotPasswordFragment());
+            activity.getSupportActionBar().show();
         });
 
         button_signup.setOnClickListener(v -> {

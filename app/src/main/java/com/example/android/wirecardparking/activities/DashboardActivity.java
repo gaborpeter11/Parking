@@ -9,8 +9,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.example.android.wirecardparking.BaseActivity;
-import com.example.android.wirecardparking.logic.dashboard.Tab1Fragment;
 import com.example.android.wirecardparking.R;
+import com.example.android.wirecardparking.logic.dashboard.Tab1Fragment;
 import com.example.android.wirecardparking.logic.dashboard.Tab2Fragment;
 import com.example.android.wirecardparking.logic.dashboard.Tab3Fragment;
 import com.example.android.wirecardparking.rest.ApiClient;
@@ -36,12 +36,20 @@ public class DashboardActivity extends BaseActivity {
     @BindView(R.id.viewpager)
     ViewPager viewpager;
 
+    @BindView(R.id.toolbar)
+    android.support.v7.widget.Toolbar toolbar;
+
     private static boolean hasParkingSpot = false;
     String number;
     private static String parkingPlaceID;
 
     @Override
     public void init(Bundle savedInstanceState) {
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(R.string.app_title);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().hide();
 
         setupViewPager(viewpager);
         tabLayout.setupWithViewPager(viewpager);

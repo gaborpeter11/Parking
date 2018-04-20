@@ -35,6 +35,11 @@
             android:windowSoftInputMode="adjustPan"
             android:configChanges="keyboardHidden|orientation">
         </activity>
+        <activity android:name=".activities.ChangePasswordActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:configChanges="keyboardHidden|orientation">
+        </activity>
 
 
     </application>

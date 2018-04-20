@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -23,10 +24,10 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -53,6 +54,9 @@ public class Tab2Fragment extends BaseFragment implements DatePickerDialog.OnDat
     @BindView(R.id.tw_contact)
     TextView tw_contact;
 
+    @BindView(R.id.textView3)
+    TextView tw_textview;
+
     @BindView(R.id.view1)
     View view1;
 
@@ -60,6 +64,8 @@ public class Tab2Fragment extends BaseFragment implements DatePickerDialog.OnDat
     View view2;
 
     private String value;
+    private String[] holidays;
+    private List<String> arrayHelper = new ArrayList<>();
 
     @Override
     protected void init(Bundle savedInstanceState) {
@@ -125,17 +131,22 @@ public class Tab2Fragment extends BaseFragment implements DatePickerDialog.OnDat
                     }
                 }
             }
-            tw_owner.setText("Spot owner: " + owner_name);
+
+            String boldHelperString = "Spot owner: " + "<b>" + owner_name + "</b> ";
+            tw_owner.setText(Html.fromHtml(boldHelperString));
             tw_contact.setText(owner_number);
-            tw_spot.setText("Spot number: " + parkingID);
+            boldHelperString = "Spot number: " + "<b>" + parkingID + "</b> ";
+            tw_spot.setText(Html.fromHtml(boldHelperString));
             tw_title.setText(houseName);
             view1.setVisibility(View.VISIBLE);
             view2.setVisibility(View.VISIBLE);
+            tw_textview.setVisibility(View.VISIBLE);
             button.setEnabled(true);
         }else{
             tw_title.setText("You do not have any spot now");
             view1.setVisibility(View.INVISIBLE);
             view2.setVisibility(View.INVISIBLE);
+            tw_textview.setVisibility(View.INVISIBLE);
             button.setEnabled(false);
         }
 
@@ -155,18 +166,17 @@ public class Tab2Fragment extends BaseFragment implements DatePickerDialog.OnDat
         );
         dpd.show(getActivity().getFragmentManager(), "DatePickerDialog");
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String[] holidays = {};
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
-        java.util.Date date = null;
+       Date date = null;
 
-        if(holidays.length == 0 || holidays == null)
+        if(holidays == null || holidays.length == 0)
             return;
 
-        for (int i = 0;i < holidays.length; i++) {
+        for (String holiday : holidays) {
 
             try {
-                date = sdf.parse(holidays[i]);
+                date = sdf.parse(holiday);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -195,10 +205,12 @@ public class Tab2Fragment extends BaseFragment implements DatePickerDialog.OnDat
 
         monthOfYear = monthOfYear + 1;
         String date = year + "-" + monthOfYear + "-" + +dayOfMonth;
-        List<String> holidays =  Arrays.asList(date);
+        arrayHelper.add(date);
+        holidays =  arrayHelper.toArray(new String[arrayHelper.size()]);
+
         SetAvailableDaysRequest setAvailableDaysRequest = new SetAvailableDaysRequest();
-        setAvailableDaysRequest.setParkingPlaceIdentifier("fd58b607-dc14-43f5-b33c-ce77430e64a5");
-        setAvailableDaysRequest.setDays(holidays);
+        setAvailableDaysRequest.setParkingPlaceIdentifier("fd58b607-dc14-43f5-b33c-ce77430e64a5");  // parkovisko 2
+        setAvailableDaysRequest.setDays(arrayHelper);
 
 
         ApiClient.getApiService().setAvailableDays(value, setAvailableDaysRequest)
