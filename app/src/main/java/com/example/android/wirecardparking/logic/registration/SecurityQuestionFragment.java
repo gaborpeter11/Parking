@@ -115,6 +115,7 @@ public class SecurityQuestionFragment extends BaseFragment {
 //        HttpException err = (HttpException) throwable;
 //        String errBody = err.response().errorBody().string();
 //        System.out.println(errBody);
+        System.out.println(throwable.getMessage());
         Toast.makeText(getActivity(), "Failed to register",
                 Toast.LENGTH_SHORT).show();
     }

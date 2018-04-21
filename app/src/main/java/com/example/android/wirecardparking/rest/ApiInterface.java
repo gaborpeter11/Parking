@@ -49,8 +49,9 @@ public interface ApiInterface {
             "Content-Type: application/json",
             "Accept: application/json",
     })
-    @PUT("user/+421901111244/set-available-days")
-    Completable setAvailableDays(@Header("Authorization") String token, @Body SetAvailableDaysRequest setAvailableDays);
+    @PUT("user/{number}/set-available-days")
+    Completable setAvailableDays(@Header("Authorization") String token, @Body SetAvailableDaysRequest setAvailableDays,
+                                 @Path(value = "number", encoded = true) String userNumber);
 
 
     @Headers({

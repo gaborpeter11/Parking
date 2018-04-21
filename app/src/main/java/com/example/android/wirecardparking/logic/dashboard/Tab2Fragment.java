@@ -48,6 +48,9 @@ public class Tab2Fragment extends BaseFragment implements DatePickerDialog.OnDat
     @BindView(R.id.tw_spot)
     TextView tw_spot;
 
+    @BindView(R.id.tw_reserved)
+    TextView tw_reserved;
+
     @BindView(R.id.tw_owner)
     TextView tw_owner;
 
@@ -64,6 +67,7 @@ public class Tab2Fragment extends BaseFragment implements DatePickerDialog.OnDat
     View view2;
 
     private String value;
+    private String number;
     private String[] holidays;
     private List<String> arrayHelper = new ArrayList<>();
 
@@ -79,14 +83,13 @@ public class Tab2Fragment extends BaseFragment implements DatePickerDialog.OnDat
             startActivity(intent);
         });
 
-        button.setOnClickListener(v -> {
-            showDatePicker();
-        });
+        button.setOnClickListener(v -> showDatePicker());
 
 
         SharedPreferences settings = getContext().getSharedPreferences(TOKEN, MODE_PRIVATE);
         // Reading from SharedPreferences
         value = "Bearer " + settings.getString("token", "");
+        number = settings.getString("number", "");
 
         ApiClient.getApiService().getAllPlaces(value)
                 .subscribeOn(Schedulers.io())
@@ -106,7 +109,7 @@ public class Tab2Fragment extends BaseFragment implements DatePickerDialog.OnDat
     private void handleError(Throwable throwable) throws IOException {
 //        HttpException err = (HttpException) throwable;
 //        String errBody = err.response().errorBody().string();
-        Toast.makeText(getActivity(), "Error occurred", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Error occurred\n Are you sure that you are owner?", Toast.LENGTH_LONG).show();
         System.out.println(throwable.getMessage());
     }
 
@@ -142,10 +145,17 @@ public class Tab2Fragment extends BaseFragment implements DatePickerDialog.OnDat
             view2.setVisibility(View.VISIBLE);
             tw_textview.setVisibility(View.VISIBLE);
             button.setEnabled(true);
+            if(DashboardActivity.getDay() == null || DashboardActivity.getDay().isEmpty()) {   // TODO:
+            }
+            else{
+                tw_reserved.setVisibility(View.VISIBLE);
+                tw_reserved.setText("Reserved: " + DashboardActivity.getDay());
+            }
         }else{
             tw_title.setText("You do not have any spot now");
             view1.setVisibility(View.INVISIBLE);
             view2.setVisibility(View.INVISIBLE);
+            tw_reserved.setVisibility(View.INVISIBLE);
             tw_textview.setVisibility(View.INVISIBLE);
             button.setEnabled(false);
         }
@@ -209,13 +219,16 @@ public class Tab2Fragment extends BaseFragment implements DatePickerDialog.OnDat
         holidays =  arrayHelper.toArray(new String[arrayHelper.size()]);
 
         SetAvailableDaysRequest setAvailableDaysRequest = new SetAvailableDaysRequest();
-        setAvailableDaysRequest.setParkingPlaceIdentifier("fd58b607-dc14-43f5-b33c-ce77430e64a5");  // parkovisko 2
+        setAvailableDaysRequest.setParkingPlaceIdentifier(DashboardActivity.getPlaceID());  // parkovisko 2
         setAvailableDaysRequest.setDays(arrayHelper);
 
-        ApiClient.getApiService().setAvailableDays(value, setAvailableDaysRequest)
+        ApiClient.getApiService().setAvailableDays(value, setAvailableDaysRequest, number)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> ((DashboardActivity) getContext()).refreshUI(),
+                .subscribe(() -> {
+                            ((DashboardActivity) getContext()).refreshUI();
+                        },
+
                         this::handleError
                 );
 

@@ -46,6 +46,7 @@ public class DashboardActivity extends BaseActivity {
 
     private static boolean hasParkingSpot = false;
     String number;
+    private static String reservedDay = null;
     private static String parkingPlaceID;
     private ViewPagerAdapter adapter;
 
@@ -165,6 +166,7 @@ public class DashboardActivity extends BaseActivity {
                 for(int k = 0; k < fullParkingHouses.get(i).getPlaces().get(j).getAvailableSpots().size(); k++){
                     if(fullParkingHouses.get(i).getPlaces().get(j).getAvailableSpots().get(k).getEachDayUser()!= null) {
                         if(fullParkingHouses.get(i).getPlaces().get(j).getAvailableSpots().get(k).getEachDayUser().getUserNumber().equals(number)) {
+                            setDay(fullParkingHouses.get(i).getPlaces().get(j).getAvailableSpots().get(k).getDay());
                             startSecondFragment();
                             setPlaceID(fullParkingHouses.get(i).getPlaces().get(j).getId());
                             return;
@@ -175,6 +177,10 @@ public class DashboardActivity extends BaseActivity {
         }
 
         loader.setVisibility(View.INVISIBLE);
+        setupViewPager(viewpager);
+        tabLayout.setupWithViewPager(viewpager);
+        viewpager.setCurrentItem(0);
+        setHasParkingSpot(false);
 
     }
 
@@ -207,6 +213,16 @@ public class DashboardActivity extends BaseActivity {
     public static void setPlaceID(String id){
         parkingPlaceID = id;
     }
+
+
+    public static String getDay(){
+        return reservedDay;
+    }
+
+    public static void setDay(String reserved){
+        reservedDay = reserved;
+    }
+
 
 }
 

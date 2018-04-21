@@ -203,11 +203,18 @@ public class Tab1Fragment extends BaseFragment implements ParkingAdapter.Parking
         assignParkingPlace.setLoginAlias(phone);
         assignParkingPlace.setLoginAliasType("msisdn");
 
+        monthOfYear = monthOfYear + 1;
+        String date = year + "-" + monthOfYear + "-" + +dayOfMonth;
+        DashboardActivity.setDay(date);
+
 
         ApiClient.getApiService().assignParkingPlace(value, assignParkingPlace, phone)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> ((DashboardActivity) getContext()).refreshUI(),
+                .subscribe(() -> {
+                            ((DashboardActivity) getContext()).refreshUI();
+                            DashboardActivity.setHasParkingSpot(true);  //TODO
+                        },
                         this::handleError
                 );
 
