@@ -59,8 +59,8 @@ public class LoginFragment extends BaseFragment {
     @Override
     protected void init(Bundle savedInstanceState) {
 
-        input_layout.getEditText().setText("+1651516156");
-        input_pwd_layout.getEditText().setText("1111");
+//        input_layout.getEditText().setText("+1651516156");
+//        input_pwd_layout.getEditText().setText("1111");
 
         if( activity.getSupportActionBar() != null)
             activity.getSupportActionBar().hide();
